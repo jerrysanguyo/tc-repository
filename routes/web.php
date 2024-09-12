@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\{
-    Http\Controllers\Auth\LoginController,
-    Http\Controllers\Auth\RegisterController,
-    Http\Controllers\Auth\VerifyController,
+use App\Http\Controllers\{
+    Auth\LoginController,
+    Auth\RegisterController,
+    Auth\VerifyController,
+    HomeController,
 };
 //login
 Route::get('/', [LoginController::class, 'index'])->name('login');
@@ -17,3 +18,7 @@ Route::post('/registration/store', [RegisterController::class, 'register'])->nam
 Route::get('/verification/{userId}', [VerifyController::class, 'index'])->name('verification');
 Route::post('/verification/otp/{userId}', [VerifyController::class, 'verify'])->name('otp.verify');
 Route::post('/verification/detail/{userId}', [VerifyController::class, 'userDetail'])->name('store.detail');
+
+Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+});

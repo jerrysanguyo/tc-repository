@@ -10,23 +10,20 @@ class AuthService
     {
         if (Auth::attempt($credentials)) {
             session()->regenerate();
-
             return $this->redirectUserBasedOnRole(Auth::user());
         }
 
         return false;
     }
 
-    protected function redirectUserBasedOnRole($user)
+    public function redirectUserBasedOnRole($user)
     {
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'superadmin') {
+        if ($user->role === 'superadmin') {
             return redirect()->route('superadmin.dashboard');
+        } elseif ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
         } else {
             return redirect()->route('user.dashboard');
         }
-
-        return redirect()->route('user.dashboard');
     }
 }

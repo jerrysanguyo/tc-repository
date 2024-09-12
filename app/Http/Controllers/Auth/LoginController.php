@@ -23,12 +23,10 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
-        
-        $loginSuccessful = $this->authService->login($credentials);
+        $credentials = $request->validated();
 
-        if ($loginSuccessful) {
-            return $loginSuccessful;
+        if ($this->authService->login($credentials)) {
+            return $this->authService->redirectUserBasedOnRole(Auth::user());
         }
 
         return back()->withErrors([

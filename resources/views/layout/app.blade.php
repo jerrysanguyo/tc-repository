@@ -43,14 +43,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                @if(Auth::user()->role === 'admin')
-                    <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-                    @elseif(Auth::user()->role === 'superadmin')
-                    <a class="navbar-brand" href="{{ route('superadmin.dashboard') }}">
-                    @else
-                    <a class="navbar-brand" href="{{ route('user.dashboard') }}">
-                @endif
-                    <img src="{{ asset('image/police_logo.webp') }}" class="float-end" alt="police logo" style="width:25%">
+                <a class="navbar-brand" href="{{ route(Auth::user()->role .'.dashboard') }}">
+                    <!-- <img src="{{ asset('image/city-logo.webp') }}" class="float-start" alt="city logo" style="width:5%"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -61,39 +55,14 @@
                     <ul class="navbar-nav me-auto">
                         @if(Auth::user()->role === 'superadmin')
                             <li class="nav-item">
-                                <a href="{{ route('superadmin.account.index') }}" class="nav-link">
+                                <a href="#" class="nav-link">
                                     Account
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('superadmin.rank.index') }}" class="nav-link">
-                                    Rank
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('superadmin.office.index') }}" class="nav-link">
-                                    Office
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('superadmin.program.index') }}" class="nav-link">
-                                    Program
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Special Course
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('superadmin.special.index') }}">Special course (Main)</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('superadmin.specialExtn.index') }}">Special course (Extension)</a></li>
-                                </ul>
                             </li>
                         @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -107,24 +76,23 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->last_name }}, {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->detail->first_name }} {{ Auth::user()->detail->middle_name }} {{ Auth::user()->detail->last_name }} 
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        @endguest   
                     </ul>
                 </div>
             </div>
