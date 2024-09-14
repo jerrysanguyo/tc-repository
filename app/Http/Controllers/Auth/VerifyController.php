@@ -35,19 +35,22 @@ class VerifyController extends Controller
     public function verify(OtpRequest $request, $userId)
     {
         $otpRecord = Otp::getOtp($userId)->first();
+        // check if the otp that was sent to email and otp entered is matched.
         if ($otpRecord && $otpRecord->Otp === $request->otp) {
-            //update the is_verified
+            //update the is_verified to true.
             $this->registerService->otpVerify($userId);
 
             return redirect()->route('verification', $userId)
                             ->with('success', 'OTP verified successfully!');
         } else {
+            // if otp incorrect this will pop up.
             return back()->withError(['otp' =>  'The OTP that you entered is incorrect.']);
         }
     }
 
     public function userDetail( $userId, UserDetailRequest $request)
     {
+        // store for storing user details.
         $this->registerService->userDetail($userId, $request->validated());
         
         return redirect()->route('login')->with('success', 'You may now login your account!');

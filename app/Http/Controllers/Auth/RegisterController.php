@@ -28,6 +28,7 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        // storing account.
         $user = $this->registerService->register($request->validated());
         
         return redirect()->route('verification', ['userId' => $user->id])

@@ -9,6 +9,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if(session('error'))
+                <div class="alert alert-success">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="card border-0 shadow">
                 <div class="card-body d-flex align-items-center" style="min-height: 300px;">
                     <div class="row w-100">
@@ -18,6 +23,9 @@
                             </div>
                         </div>
                         <div class="col-md-8">
+                            @php
+                            // is_verified false otp will appear if true user details form will.
+                            @endphp
                             @if($user->is_verified === 0)
                                 <div class="row text-center">
                                     <span class="fs-1 ">Account verification</span>

@@ -19,6 +19,11 @@ class UserDetail extends Model
         'department_id'
     ];
 
+    public static function getUserDetails($userId)
+    {
+        return self::where('user_id', $userId);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

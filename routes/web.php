@@ -19,6 +19,11 @@ Route::get('/verification/{userId}', [VerifyController::class, 'index'])->name('
 Route::post('/verification/otp/{userId}', [VerifyController::class, 'verify'])->name('otp.verify');
 Route::post('/verification/detail/{userId}', [VerifyController::class, 'userDetail'])->name('store.detail');
 
+//routes for super admin
 Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+});
+//routes for user
+Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
