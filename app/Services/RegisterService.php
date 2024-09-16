@@ -44,6 +44,7 @@ class RegisterService
         $user = User::findOrFail($userId);
         $user->update([
             'is_verified' => 1,
+            'email_verified_at' =>  now(),
         ]);
 
         return $user;

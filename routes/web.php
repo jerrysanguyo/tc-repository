@@ -34,4 +34,5 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
 //routes for user
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::resource('account', AccountController::class);
 });

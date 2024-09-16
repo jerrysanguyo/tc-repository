@@ -26,7 +26,7 @@
                             @php
                             // is_verified false otp will appear if true user details form will.
                             @endphp
-                            @if($user->is_verified === 0)
+                            @if($user->is_verified === 0 || $user->is_verified === NULL )
                                 <div class="row text-center">
                                     <span class="fs-1 ">Account verification</span>
                                     <span class="fs-6 mb-4 text-body-secondary">We have sent an OTP through your email.</span>

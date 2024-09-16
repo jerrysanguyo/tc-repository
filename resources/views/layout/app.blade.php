@@ -81,7 +81,7 @@
                                 {{ Auth::user()->detail->first_name ?? '' }} {{ Auth::user()->detail->middle_name ?? '' }} {{ Auth::user()->detail->last_name ?? '' }} 
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a href="{{ route($userRole . '.account.edit', ['account'=>Auth::user()->id] ) }}" class="dropdown-item">
+                                <a href="#" class="dropdown-item">
                                     Profile
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
