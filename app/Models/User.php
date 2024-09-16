@@ -30,8 +30,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function getAllUser()
+    {
+        return self::all();
+    }
+
     public function detail()
     {
         return $this->hasOne(UserDetail::class);
+    }
+
+    public function validation()
+    {
+        return $this->hasOne(UserValidation::class);
     }
 }

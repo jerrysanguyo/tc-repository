@@ -44,7 +44,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route(Auth::user()->role .'.dashboard') }}">
-                    <!-- <img src="{{ asset('image/city-logo.webp') }}" class="float-start" alt="city logo" style="width:5%"> -->
+                    <img src="{{ asset('image/city-logo.webp') }}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -53,9 +53,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        @if(Auth::user()->role === 'superadmin')
+                        @if(Auth::user()->role === 'superadmin' || Auth::user()->role === 'admin')
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route($userRole .'.account.index') }}" class="nav-link">
                                     Account
                                 </a>
                             </li>

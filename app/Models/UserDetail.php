@@ -18,10 +18,15 @@ class UserDetail extends Model
         'last_name',
         'department_id'
     ];
-
+    // fetch User details per user
     public static function getUserDetails($userId)
     {
         return self::where('user_id', $userId);
+    }
+    // fetch user with specific department and not validated
+    public static function accountPerDepartment($department)
+    {
+        return self::where('department_id', $department);
     }
 
     public function user()
