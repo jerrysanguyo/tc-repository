@@ -19,6 +19,7 @@ class User extends Authenticatable
         'password',
         'is_verified',
         'role',
+        'slug'
     ];
     
     protected $hidden = [
@@ -30,9 +31,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function getAllUser()
+    public static function getAllUser($department)
     {
-        return self::all();
+        return User::with('detail')
+                    ->whereHas('detail', function($accountPerDept) use ($department) {
+                        $accountPerDept->where('department_id', $department);
+                    })
+                    ->get();
     }
 
     public function detail()

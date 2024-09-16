@@ -51,12 +51,26 @@ class RegisterService
 
     public function userDetail($userId, array $data): UserDetail
     {
-        return UserDetail::create([
-            'user_id'       =>  $userId,
+        return UserDetail::updateOrCreate(
+            ['user_id' => $userId], 
+            [
+                'first_name'    => $data['first_name'],
+                'middle_name'   => $data['middle_name'] ?? '', 
+                'last_name'     => $data['last_name'],
+                'department_id' => $data['department_id'],
+            ]
+        );
+    }
+
+    public function userUpdate($account, array $data): UserDetail
+    {
+        $account->update([
             'first_name'    =>  $data['first_name'],
             'middle_name'   =>  $data['middle_name'],
             'last_name'     =>  $data['last_name'],
             'department_id' =>  $data['department_id'],
-        ]);   
+        ]);
+
+        return $account;
     }
 }

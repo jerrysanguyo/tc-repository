@@ -23,11 +23,13 @@ class UserDetail extends Model
     {
         return self::where('user_id', $userId);
     }
-    // fetch user with specific department and not validated
-    public static function accountPerDepartment($department)
-    {
-        return self::where('department_id', $department);
-    }
+    
+    // uncomment if needed.
+    // fetch user with specific department and not validated.
+    // public static function accountPerDepartment($department)
+    // {
+    //     return self::where('department_id', $department);
+    // }
 
     public function user()
     {

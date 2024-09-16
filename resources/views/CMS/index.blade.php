@@ -4,12 +4,8 @@
 <div class="container">
     <div class="d-flex justify-content-between mb-1">
         <span class="fs-3">List accounts</span>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createaccount">
-            Create a account
-        </button>
     </div>
-    <div class="card shadow border">
+    <div class="card shadow border-0">
         <div class="card-body">
             @if(session('success'))
                 <div class="alert alert-success">
@@ -42,10 +38,10 @@
                         <td>
                             @if($account->validation === null)
                                 <!-- if no records in validation -->
-                                Account not validated.
+                                Not validated.
                                 @else
                                 <!-- if existing record -->
-                                    Account validated by {{ $account->validation->validatedBy->detail->first_name }}
+                                    Validated by {{ $account->validation->validatedBy->detail->first_name }}
                             @endif
                         </td>
                         <td>
@@ -55,7 +51,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item">Edit</a>
+                                        <a href="{{ route($userRole . '.account.edit', $account->id) }}" class="dropdown-item">Edit</a>
                                     </li>
                                     <li>
                                         @if($account->validation === null)
