@@ -73,8 +73,8 @@
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fa-solid fa-tag mx-1"></i>Category
+                                        <a class="dropdown-item" href="{{ route($userRole . '.Department.index') }}">
+                                            <i class="fa-solid fa-tag mx-1"></i>Department
                                         </a>
                                     </li>
                                 </ul>

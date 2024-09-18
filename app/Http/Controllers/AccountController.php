@@ -34,7 +34,7 @@ class AccountController extends Controller
         $department = Auth::user()->load('detail')->detail->department_id;
         $allUser = User::getAllUser($department);
 
-        return $dataTable->render('cms.index', compact(
+        return $dataTable->render('cms.account.index', compact(
             // 'adminDepartment',
             'allUser',
         ));
@@ -59,7 +59,7 @@ class AccountController extends Controller
     public function edit(User $account)
     {
         $listOfDepartment = Department::getAllDepartment();
-        return view('cms.edit', compact(
+        return view('cms.account.edit', compact(
             'account',
             'listOfDepartment'
         ));
