@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserValidation::class);
     }
+
+    public function folder()
+    {
+        return $this->hasOne(Folder::class);
+    }
 }

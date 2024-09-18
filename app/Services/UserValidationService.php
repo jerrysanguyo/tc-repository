@@ -5,50 +5,75 @@ namespace App\Services;
 use App\{
     Models\UserValidation,
     Models\UserDetail,
+    Models\Folder,
 };
-use Illuminate\Support\{
-    Facades\Mail,
-    Facades\Auth,
-    Facades\File,
+use Illuminate\Support\Facades\{
+    Auth,
+    File,
 };
 
 class UserValidationService
 {
     public function validateUser($userId): UserValidation
     {
-        // fetch user details for file name.
+        // Fetch user details for file name.
         $userDetail = UserDetail::getUserDetails($userId)->first();
 
-        // create the user validation record
+        // Create the user validation record.
         $userValidation = UserValidation::create([
-            'user_id'       =>  $userId,
-            'validated_by'  =>  Auth::user()->id,
-            'remarks'       =>  'User validated'
+            'user_id'       => $userId,
+            'validated_by'  => Auth::user()->id,
+            'remarks'       => 'User validated'
         ]);
 
-        // create folder in public based on user details
-        $folderName = $userDetail->first_name . '-'  . $userDetail->middle_name . '-'  . $userDetail->last_name . '-' . $userId;
+        // Create folder name based on user details.
+        $folderName = $userDetail->first_name . '-' . $userDetail->middle_name . '-' . $userDetail->last_name . '-' . $userId;
         $folderPath = public_path('validated_users/' . $folderName);
 
-        // Create folder if it doesn't exists
-        if (!File::exists($folderPath)) {
-            File::makeDirectory($folderPath, 0755, true); // 0755 permission. For more info kindly search hehe.
+        // Check if the folder exists in the database.
+        $folderExists = Folder::userFolder($userId)->first();
+
+        if (!$folderExists) {
+            // Create folder if it doesn't exist in the file system.
+            if (!File::exists($folderPath)) {
+                File::makeDirectory($folderPath, 0755, true); // Folder creation with 0755 permissions.
+            }
+
+            // If the folder record doesn't exist, create it.
+            Folder::create([
+                'user_id'     => $userId,
+                'folder_name' => $folderName,
+                'folder_path' => $folderPath,
+                'permission'  => '0755',
+                'remarks'     => 'validated',
+            ]);
+        } else {
+            // If the folder record exists, just update the remarks to 'validated'.
+            $folderExists->update(['remarks' => 'validated']);
         }
 
         return $userValidation;
     }
 
-    public function unvalidateUser($userId): UserValidation
+    public function unvalidateUser($userId): ?UserValidation
     {
-        // Find validation record.
+        // Find the validation record.
         $validation = UserValidation::where('user_id', $userId)->first();
 
-        // If found, delete and return it.
+        // If found, delete the validation record.
         if ($validation) {
             $validation->delete();
-            return $validation; // return validation if there is a record.
+
+            // Check if the folder record exists.
+            $folderExists = Folder::userFolder($userId)->first();
+            if ($folderExists) {
+                // Update the folder's remarks to 'unvalidated'.
+                $folderExists->update(['remarks' => 'unvalidated']);
+            }
+
+            return $validation; // Return the deleted validation record.
         }
 
-        return null; //return null if no validation found.
+        return null; // Return null if no validation record is found.
     }
 }
