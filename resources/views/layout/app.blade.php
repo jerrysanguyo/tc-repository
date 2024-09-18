@@ -68,13 +68,18 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="dropdown-item" href="{{ route($userRole .'.account.index') }}">
-                                            <i class="fa-solid fa-users mx-1"></i>Account
+                                            <i class="fa-solid fa-users mx-1"></i>Accounts
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route($userRole . '.Department.index') }}">
-                                            <i class="fa-solid fa-tag mx-1"></i>Department
+                                            <i class="fa-solid fa-tag mx-1"></i>Departments
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route($userRole . '.Tag.index') }}">
+                                            <i class="fa-solid fa-tag mx-1"></i>Tags
                                         </a>
                                     </li>
                                 </ul>

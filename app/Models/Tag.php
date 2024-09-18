@@ -18,7 +18,7 @@ class Tag extends Model
         'updated_by',
     ];
 
-    public function getAllDepartment()
+    public static function getAllTags()
     {
         return self::all();
     }

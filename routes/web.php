@@ -6,6 +6,7 @@ use App\Http\Controllers\{
     Auth\RegisterController,
     Auth\VerifyController,
     CMS\DepartmentController,
+    CMS\TagController,
     HomeController,
     AccountController,
 };
@@ -27,6 +28,7 @@ Route::post('/verification/detail/{userId}', [VerifyController::class, 'userDeta
 Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     // resources
+    Route::resource('Tag', TagController::class);
     Route::resource('Department', DepartmentController::class);
     Route::resource('account', AccountController::class);
     Route::post('/account/{userId}', [AccountController::class, 'accountValidate'])->name('account.validate');
