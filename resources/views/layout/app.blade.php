@@ -18,6 +18,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
 
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/4f2d7302b1.js" crossorigin="anonymous"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
@@ -37,6 +40,10 @@
             -o-background-size: cover;
             background-size: cover;
         }
+
+        i {
+            color: #B197FC;
+        }
     </style>
 </head>
 <body>
@@ -54,12 +61,40 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if(Auth::user()->role === 'superadmin' || Auth::user()->role === 'admin')
-                            <li class="nav-item">
-                                <a href="{{ route($userRole .'.account.index') }}" class="nav-link">
-                                    Account
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-toolbox mx-1"></i>CMS
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route($userRole .'.account.index') }}">
+                                            <i class="fa-solid fa-users mx-1"></i>Account
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa-solid fa-tag mx-1"></i>Category
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @endif
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa-solid fa-file mx-1"></i>My file
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa-solid fa-share-from-square mx-1"></i>Shared with me
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa-solid fa-trash mx-1"></i>Trash
+                            </a>
+                        </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

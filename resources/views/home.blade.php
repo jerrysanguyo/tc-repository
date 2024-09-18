@@ -1,5 +1,12 @@
 @extends('layout.app')
-
 @section('content')
-    {{Auth::user()->role}}
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card shadow border-0">
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
