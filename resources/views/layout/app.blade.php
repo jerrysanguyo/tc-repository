@@ -86,8 +86,8 @@
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fa-solid fa-file mx-1"></i>My file
+                            <a href="{{ route($userRole . '.folder.index') }}" class="nav-link">
+                                <i class="fa-solid fa-folder mx-1"></i>My folder
                             </a>
                         </li>
                         <li class="nav-item">

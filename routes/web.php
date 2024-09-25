@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     CMS\TagController,
     HomeController,
     AccountController,
+    FolderController,
 };
 //login
 Route::get('/', [LoginController::class, 'index'])->name('login');
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     // resources
     Route::resource('Tag', TagController::class);
     Route::resource('Department', DepartmentController::class);
+    Route::resource('folder', FolderController::class);
     Route::resource('account', AccountController::class);
     Route::post('/account/{userId}', [AccountController::class, 'accountValidate'])->name('account.validate');
     Route::delete('account/{userId}/unvalidate', [AccountController::class, 'accountUnvalidate'])->name('account.unvalidate');
